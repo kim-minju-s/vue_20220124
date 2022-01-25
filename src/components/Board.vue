@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3>Board.vue</h3>
-        <table>
+        <table border="1px">
             <tr>
                 <th>번호</th>
                 <th>제목</th>
@@ -9,7 +9,7 @@
                 <th>조회수</th>
             </tr>
             <tr v-for="tmp in state.items.result" :key="tmp">
-                <td>{{tmp.no}}</td>
+                <td @click="handleBoardContent(tmp.no)">{{tmp.no}}</td>
                 <td>{{tmp.title}}</td>
                 <td>{{tmp.writer}}</td>
                 <td>{{tmp.hit}}</td>
@@ -22,8 +22,12 @@
 <script>
 import {onMounted, reactive} from 'vue';
 
+import {useRouter} from 'vue-router';
+
 export default {
     setup () {
+        const router = useRouter();
+
         const state = reactive({
             items: {},
         });
@@ -36,15 +40,23 @@ export default {
                 {no:2, title:'가2', writer:'a', hit:14},
                 {no:3, title:'가3', writer:'c', hit:14},
             ];
-        });    
+        });
 
-        return {state}
+        const handleBoardContent = (no) => {
+            console.log(no);
+            // 127.0.0.1:3000/boardcontent?no=2
+            router.push({name:"BoardContent", query:{no:no}});
+        }
+
+        return {state, handleBoardContent}
     },
 
     // mounted(){}
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css">
+    .ck-editor__editable {
+        min-height: 500px;
+    }
 </style>

@@ -15,6 +15,9 @@
       <el-menu-item index="/login">Login</el-menu-item>
       <el-menu-item index="/board">Board</el-menu-item>
       <el-menu-item index="/admin">Admin</el-menu-item>
+      <el-menu-item index="/join">Join</el-menu-item>
+      <el-menu-item index="/chart">Chart</el-menu-item>
+      <el-menu-item index="/boardwrite">BoardWrite</el-menu-item>
 
     </el-menu>
     {{menu}},{{logged}}

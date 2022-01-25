@@ -1,0 +1,90 @@
+<template>
+    <div>
+        <h3>BoardWrite.vue</h3>
+        {{state}},
+        <hr/>
+        제목: <input type="text" v-model="state.title" /> <br />
+
+        내용: 
+            <div style="width:600px">
+                <ckeditor 
+                :editor="editor.editor"
+                :config="editor.editorConfig"
+                v-model="state.content"></ckeditor>
+            </div>
+            
+        작성자: <input type="text" v-model="state.writer" /><br />
+
+        이미지: 
+            <img :src="state.imgurl" style="width:100px;height:100px" />
+            <input type="file" @change="handleImage" /><br /> 
+
+        <button @click="handleWrite">글쓰기</button><br />
+    </div>
+</template>
+
+<script>
+import {reactive} from 'vue';
+
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+export default {
+
+    setup () {
+
+        //object
+        const editor = {
+            editor: ClassicEditor,
+            editorData: '<p>테스트</p>',
+            editorConfig: {}
+        }
+
+        const state = reactive({
+            title   : '',
+            content : '',
+            writer   : '',
+            imgdata : '',
+            imgurl  : require('../assets/default.jpg'),
+        });
+
+        // 첨부 or 취소
+        const handleImage = (e) => {
+            console.log(e); // 콘설에서 파일 확인
+            if(e.target.files[0]){ //첨부
+                state.imgdata = e.target.files[0];
+                // 크롬 내부에 임시로 이미지를 표시하기 위한 URL생성
+                state.imgurl = URL.createObjectURL(e.target.files[0]);
+            }
+            else{ //취소
+                state.imgdata = '';
+                state.imgurl = require('../assets/default.jpg');
+            }
+        };
+
+        const handleWrite = async() => {
+            if(state.title === ''){
+                alert('제목을 입력하세요.');
+                return false;
+            }
+            if(state.content === ''){
+                alert('내용을 입력하세요.');
+                return false;
+            }
+            if(state.witer === ''){
+                alert('작성자를 입력하세요.');
+                return false;
+            }
+            if(state.imgdata === ''){
+                alert('이미지를 넣어주세요.');
+                return false;
+            }
+        };
+
+        return {state, handleImage, handleWrite, editor}
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+
+</style>

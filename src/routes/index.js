@@ -7,12 +7,22 @@ import Home from '@/components/Home.vue';
 import Board from '@/components/Board.vue';
 import Login from '@/components/Login.vue';
 import Admin from '@/components/Admin.vue';
+import Join from '@/components/Join.vue';
+import BoardContent from '@/components/BoardContent.vue';
+import Chart from '@/components/Chart.vue';
+import BarChart from '@/components/BarChart.vue';
+import BoardWrite from '@/components/BoardWrite.vue';
 
 const routes = [
     { path: '/', name: "Home", component: Home},
     { path: '/login', name: "Login", component: Login},
     { path: '/board', name: "Board", component: Board},
     { path: '/admin', name: "Admin", component: Admin},
+    { path: '/join', name: "Join", component: Join},
+    { path: '/boardcontent', name: "BoardContent", component: BoardContent},
+    { path: '/chart', name: "Chart", component: Chart},
+    { path: '/barchart', name: "BarChart", component: BarChart},
+    { path: '/boardwrite', name: "BoardWrite", component: BoardWrite},
 ]
 
 // localhost:8080/#/
