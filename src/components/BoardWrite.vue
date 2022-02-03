@@ -28,9 +28,15 @@ import {reactive} from 'vue';
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+import {useRouter} from 'vue-router';
+
+import axios from 'axios';
+
 export default {
 
     setup () {
+
+        const router = useRouter();
 
         //object
         const editor = {
@@ -77,6 +83,23 @@ export default {
             if(state.imgdata === ''){
                 alert('이미지를 넣어주세요.');
                 return false;
+            }
+
+            // 유효성 통과 후 백엔드 호출하기
+            const url = `/board/insert`;
+            const headers = {"Content-Type":"multipart/form-data"};
+            const body = new FormData();    // 이미지가 있는 경우
+            body.append("title", state.title);
+            body.append("content", state.content);
+            body.append("writer", state.writer);
+            body.append("image", state.imgdata);
+
+            const response = await axios.post(url, body, {headers});
+            console.log(response.data);
+
+            if(response.data.status === 200){
+                alert('글쓰기 완료');
+                router.push({name: "Board"});
             }
         };
 
