@@ -4,6 +4,14 @@
 
         <router-link to="/boardwrite">글쓰기</router-link>
 
+        <!-- <el-table v-for="tmp in state.items.result" :key="tmp" style="width: 100%">
+            <el-table-column :prop="tmp._id" label="번호" width="180" />
+            <el-table-column :prop="tmp.title" label="제목" width="180" />
+            <el-table-column :prop="tmp.writer" label="작성자" width="180" />
+            <el-table-column :prop="tmp.hit" label="조회수" width="180" />
+            <el-table-column :prop="tmp.regdate" label="작성일" />
+        </el-table> -->
+
         <table border="1px">
             
             <tr v-for="tmp in state.items.result" :key="tmp">
