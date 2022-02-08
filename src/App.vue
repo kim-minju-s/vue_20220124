@@ -12,7 +12,9 @@
       @select="handleSelect">
 
       <el-menu-item index="/">Home</el-menu-item>
-      <el-menu-item index="/login">Login</el-menu-item>
+      <el-menu-item v-show="!logged" index="/login">Login</el-menu-item>
+      <el-menu-item v-show="logged===true" index="/logout">Logout</el-menu-item>
+      <el-menu-item v-show="logged===true" index="/mypage">Mypage</el-menu-item>
       <el-menu-item index="/board">Board</el-menu-item>
       <el-menu-item index="/admin">Admin</el-menu-item>
       <el-menu-item index="/join">Join</el-menu-item>
@@ -26,7 +28,7 @@
 
 <script>
 import {useStore} from 'vuex';
-import {computed, reactive} from 'vue';
+import {computed, reactive, onMounted } from 'vue';
 
 export default {
   setup () {
@@ -38,16 +40,31 @@ export default {
       return store.getters.getMenu
     });
 
+    // store의 logged값의 실시간으로 확인
+    const logged = computed(() => {
+      return store.getters.getLogged
+    });
+
+    // store의 munu값 실시간으로 확인
     // state 변수 생성
     // store 에서 읽은 메뉴값으로 초기값으로 세팅
     const state = reactive({
       activeIndex : menu
     });
-    
-    const logged = computed(() => {
-      return store.getters.getLogged
-    });
 
+    onMounted( async() => { // F5 새로고침
+      // 저장소에 있는 TOKEN값을 읽어서 존재 유무
+      // TOKEN을 추가하는 시점 로그인이 완료되었을 때
+      // TOKEN의 값을 제거하는 시점 로그아웃 되었을 때
+      if (sessionStorage.getItem("TOKEN") === null) {
+        store.commit("setLogged", false);
+      }
+      else{
+        store.commit("setLogged", true);
+      }
+    })
+
+    // 메뉴를 클릭했을 때
     // store 값 변경하기
     const handleSelect = (idx) => {
       console.log(idx);
@@ -55,10 +72,12 @@ export default {
       // state.activeIndex = idx;
     };
    
+    /*
     //store의 state 변수가 변경되는 시점을 바로 알 수 있음
     store.subscribe((mutation, state) => {
       console.log('store.subscribe', mutation, state);
     })
+    */
 
     return {state, menu, logged, handleSelect}
   }

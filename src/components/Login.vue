@@ -30,7 +30,7 @@ export default {
         const store = useStore();
 
         const state = reactive({
-            userid: 'asb@b.com',
+            userid: 'asd@b.com',
             userpw: '1234'
         });
 
@@ -47,11 +47,13 @@ export default {
                 sessionStorage.setItem("TOKEN", response.data.token);
                 alert('로그인 되었습니다.');
 
-                // 주소창만 바뀜
+                // 1. 주소창만 바뀜
                 router.push({name:'Home'});
 
                 // App.vue에 메뉴의 선택항목을 변경하도록 알려줌
+                // 2. 메뉴 활성화
                 store.commit("setMenu","/");
+                // 3. 로그인 상태
                 store.commit("setLogged",true);
             }
         };
