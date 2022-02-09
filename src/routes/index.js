@@ -41,7 +41,7 @@ const routes = [
 const router = createRouter({
     history: createWebHashHistory(), // 127.0.0.1:8080/#/login
     routes: routes
-})
+});
 
 // 라우터 이동결로 확인(이동하는페이지, 이동전페이지, 다음페이지로 이동)
 router.beforeEach((to, from, next)=>{
@@ -52,6 +52,6 @@ router.beforeEach((to, from, next)=>{
     
     console.log('이동전 페이지:',from);
     next(); //다음페이지로 이동
-})
+});
 
 export default router;
