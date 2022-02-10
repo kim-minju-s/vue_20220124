@@ -5,12 +5,12 @@
         <router-link to="/boardwrite">글쓰기</router-link>
         {{state.items.result}}
         
-        <el-table :data="state.items.result" border style="width: 100%">
-            <el-table-column prop="_id" label="제목" width="180"/>
+        <el-table :data="state.items.result" border fit style="width: 100%" @row-click="handleColumn">
+            <el-table-column prop="_id" label="번호" width="50"/>
             <el-table-column prop="title" label="제목" width="180" />
             <el-table-column prop="writer" label="작성자" width="180" />
-            <el-table-column prop="hit" label="조회수" width="180" />
-            <el-table-column prop="regdate" label="작성일" />
+            <el-table-column prop="hit" label="조회수" width="80" />
+            <el-table-column prop="regdate" label="작성일" width="200" />
         </el-table>
 
         <table border="1px">
@@ -44,6 +44,11 @@ export default {
             text: ''
         });
 
+        const handleColumn = (no)=> {
+            console.log(no._id);
+            router.push({name:"BoardContent", query:{no:no._id}});
+        }
+
         // 생명주기 onMounted()
         onMounted( async()=>{
             const url = `/board/select?page=${state.page}&text=${state.text}`;
@@ -63,7 +68,7 @@ export default {
             router.push({name:"BoardContent", query:{no:no}});
         }
 
-        return {state, handleBoardContent}
+        return {state, handleBoardContent, handleColumn}
     },
 
     // mounted(){}

@@ -17,6 +17,7 @@ import BarChart from '@/components/BarChart.vue';
 import BoardWrite from '@/components/BoardWrite.vue';
 import BoardUpdate from '@/components/BoardUpdate.vue';
 import Menu1Insert from '@/components/seller/Menu1Insert.vue';
+import Menu1Detail from '@/components/seller/Menu1Detail.vue';
 
 const routes = [
     { path: '/', name: "Home", component: Home},
@@ -33,6 +34,7 @@ const routes = [
     { path: '/boardwrite', name: "BoardWrite", component: BoardWrite},
     { path: '/boardupdate', name: "BoardUpdate", component: BoardUpdate},
     { path: '/menu1insert', name: "Menu1Insert", component: Menu1Insert},
+    { path: '/menu1detail', name: "Menu1Detail", component: Menu1Detail},
 ]
 
 // localhost:8080/#/

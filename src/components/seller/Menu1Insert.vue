@@ -61,7 +61,7 @@ export default {
         };
 
         const handleSub = () => {
-            if (state.cnt-1 >= 2) { // 1개를 뺏을 때 2이상이면
+            if (state.cnt >= 3) { // 1개를 뺏을 때 2이상이면
                 state.cnt--;    // 실제적으로 숫자를 뺌
                 // state.items의 마지막에 {}을 제거
                 state.items.pop();
@@ -70,9 +70,10 @@ export default {
 
         // 파일을 첨부하거나 또는 취소하거나
         const handleImage = (e, idx)=> {
+            console.log(e); // 첨부한 파일의 정보
+            console.log(idx);   // 위치
             if (e.target.files[0]) {
-                console.log(e); // 첨부한 파일의 정보
-                console.log(idx);   // 위치
+                
                 state.items[idx].image = e.target.files[0];
             }
             else{
@@ -91,7 +92,7 @@ export default {
             // state.item = [{}, {}]
             for(let i=0;i<state.items.length;i++){
                 body.append("image", state.items[i].image);
-                body.append("title", state.items[i].title);
+                body.append("title", state.items[i].name);
                 body.append("price", state.items[i].price);
                 body.append("quantity", state.items[i].quantity);
                 body.append("content", state.items[i].content);
@@ -100,7 +101,8 @@ export default {
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
             if (response.data.status === 200) {
-                router.push({name:"Seller"})
+                alert('등록되었습니다.');
+                router.push({name:"Seller"});
             }
         }
 
