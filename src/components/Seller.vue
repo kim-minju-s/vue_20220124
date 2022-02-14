@@ -13,7 +13,11 @@
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity';
+import { reactive, onMounted } from 'vue';
+
+import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
+
 import Menu1 from './seller/Menu1.vue';
 import Menu2 from './seller/Menu2.vue';
 import Menu3 from './seller/Menu3.vue';
@@ -23,11 +27,22 @@ export default {
         Menu1, Menu2, Menu3
     },
     setup () {
+        const route = useRoute();
+        const router = useRouter();
+
         const state = reactive({
-            menu: 1
+            menu: Number(route.query.menu),
         });
 
+        onMounted(()=> {
+            console.log(route.query.menu);
+            if (typeof route.query.menu === 'undefined') {
+                state.menu = 1;
+            }
+        })
+
         const handleMenu = (idx) => {
+            router.push({name:'Seller', query:{menu:idx}});
             state.menu = idx;
         }
 

@@ -2,8 +2,9 @@
     <div>
         <h3>Board.vue</h3>
 
-        <router-link to="/boardwrite">글쓰기</router-link>
-        {{state.items.result}}
+        <!-- <router-link to="/boardwrite">글쓰기</router-link> -->
+        <el-button type="primary" @click="handleWriteAction">글쓰기</el-button>
+        <!-- {{state.items.result}} -->
         
         <el-table :data="state.items.result" border fit style="width: 100%" @row-click="handleColumn">
             <el-table-column prop="_id" label="번호" width="50"/>
@@ -13,8 +14,7 @@
             <el-table-column prop="regdate" label="작성일" width="200" />
         </el-table>
 
-        <table border="1px">
-            
+        <!-- <table border="1px">
             <tr v-for="tmp in state.items.result" :key="tmp">
                 <td @click="handleBoardContent(tmp._id)">{{ tmp._id }}</td>
                 <td>{{ tmp.title }}</td>
@@ -22,8 +22,7 @@
                 <td>{{ tmp.hit }}</td>
                 <td>{{ tmp.regdate }}</td>
             </tr>
-            
-        </table>
+        </table> -->
     </div>
 </template>
 
@@ -43,6 +42,10 @@ export default {
             page: 1,
             text: ''
         });
+
+        const handleWriteAction = async()=> {
+            router.push({name:"BoardWrite"})
+        };
 
         const handleColumn = (no)=> {
             console.log(no._id);
@@ -68,7 +71,7 @@ export default {
             router.push({name:"BoardContent", query:{no:no}});
         }
 
-        return {state, handleBoardContent, handleColumn}
+        return {state, handleBoardContent, handleColumn, handleWriteAction}
     },
 
     // mounted(){}

@@ -10,7 +10,10 @@
         <div v-if="state.items">
             <el-row :gutter="20" style="padding-top:10px" v-for="(i, idx1) in state.items.length/4" :key="i">
                 <el-col :span="6" :gutter="10" v-for="(j, idx2) in 4" :key="j">
-                    <el-card :body-style="{ padding: '5px' }" style="cursor:pointer" @click="handleDetailPage(state.items[(idx1 * 4) + idx2]._id)">
+
+                    <el-card :body-style="{ padding: '5px' }" style="cursor:pointer" 
+                        @click="handleDetailPage(state.items[(idx1 * 4) + idx2]._id)">
+                        
                         <img :src="state.items[(idx1 * 4) + idx2].imageUrl" class="image" />
                         <div style="padding: 14px">
                             <span>{{state.items[(idx1 * 4) + idx2].name}}</span>
@@ -20,6 +23,7 @@
                             </div>
                         </div>
                     </el-card>
+
                 </el-col>
             </el-row>
         </div>
@@ -72,6 +76,7 @@ export default {
             page: 1,
         });
 
+        // localhost:3000/itemcontent?code= 1085
         const handleDetailPage = async(code)=> {
             router.push({name:"ItemContent", query:{code:code}});
         };
