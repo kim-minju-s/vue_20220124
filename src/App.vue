@@ -22,6 +22,8 @@
       <el-menu-item index="/chart">Chart</el-menu-item>
 
     </el-menu>
+
+    <div v-if="logged === true">{{uid}},{{uname}}님의 로그인</div>
     {{menu}},{{logged}}
     <router-view></router-view>
   </div>
@@ -46,6 +48,14 @@ export default {
       return store.getters.getLogged
     });
 
+    const uid = computed(() => {
+      return store.getters.getUid
+    });
+
+    const uname = computed(() => {
+      return store.getters.getUname
+    });
+
     // store의 munu값 실시간으로 확인
     // state 변수 생성
     // store 에서 읽은 메뉴값으로 초기값으로 세팅
@@ -61,7 +71,11 @@ export default {
         store.commit("setLogged", false);
       }
       else{
+        // mutations 을 호출하는 경우
         store.commit("setLogged", true);
+
+        // actions를 호출할 경우
+        store.dispatch("handleData", {});
       }
     })
 
@@ -80,7 +94,7 @@ export default {
     })
     */
 
-    return {state, menu, logged, handleSelect}
+    return {state, menu, logged, handleSelect, uid, uname}
   }
 }
 </script>

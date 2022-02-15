@@ -44,8 +44,15 @@ export default {
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
             if (response.data.status === 200) {
+                
+                // 저장소에 보관하기 (공통변수)
                 sessionStorage.setItem("TOKEN", response.data.token);
                 alert('로그인 되었습니다.');
+
+                // 이메일, 이름정보 (공통변수)
+                store.commit("setUid", response.data.uid);
+                store.commit("setUname",response.data.uname);
+
 
                 const curl = sessionStorage.getItem("CURL");
                 if (curl === null) {
