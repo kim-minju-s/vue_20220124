@@ -15,9 +15,11 @@
             
         작성자: <input type="text" v-model="state.writer" /><br />
 
+        
+
         이미지: 
             <img :src="state.imgurl" style="width:100px;height:100px" />
-            <input type="file" @change="handleImage" /><br /> 
+            <input type="file" @change="handleImage" /><br />
 
         <button @click="handleWrite">글쓰기</button><br />
     </div>
@@ -52,6 +54,7 @@ export default {
             imgdata : '',
             imgurl  : require('../assets/default.jpg'),
         });
+
 
         // 첨부 or 취소
         const handleImage = (e) => {
@@ -103,7 +106,12 @@ export default {
             }
         };
 
-        return {state, handleImage, handleWrite, editor}
+        return {
+            state, 
+            handleImage, 
+            handleWrite, 
+            editor,
+        }
     }
 }
 </script>
