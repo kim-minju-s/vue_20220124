@@ -31,6 +31,12 @@
                 ></el-image>
             </div>
 
+            <el-select v-model="value" clearable placeholder="개수">
+                <el-option
+                    v-for="no in state.item.ordercnt" :key="no">
+                </el-option>
+            </el-select>
+
             <select v-model="state.item.ordercnt">
                 <option v-for="no in 100" :key="no">
                     {{ no }}
@@ -45,7 +51,7 @@
 </template>
 
 <script>
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
@@ -57,6 +63,8 @@ export default {
         const state = reactive({
             code: route.query.code,
         });
+
+        const value =  ref('');
 
         const handleSelectCartAction = async()=> {
             const url = `/shop/selectcart`;
@@ -109,7 +117,8 @@ export default {
             state, 
             handleOrderAction, 
             handleCartAction,
-            handleSelectCartAction
+            handleSelectCartAction,
+            value
         }
     }
 }
