@@ -14,8 +14,8 @@
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item v-show="!logged" index="/login">Login</el-menu-item>
       <el-menu-item v-show="logged===true" index="/logout">Logout</el-menu-item>
-      <el-menu-item v-show="logged===true" index="/mypage">Mypage</el-menu-item>
-      <el-menu-item v-show="logged===true" index="/seller">Seller</el-menu-item>
+      <el-menu-item v-show="logged===true && urole ==='CUSTOMER'" index="/mypage">Mypage</el-menu-item>
+      <el-menu-item v-show="logged===true && urole ==='SELLER'" index="/seller">Seller</el-menu-item>
       <el-menu-item index="/board">Board</el-menu-item>
       <el-menu-item index="/admin">Admin</el-menu-item>
       <el-menu-item index="/join">Join</el-menu-item>
@@ -44,16 +44,23 @@ export default {
     });
 
     // store의 logged값의 실시간으로 확인
+    // 로그인 상태 (로그인 T, 로그아웃 F)
     const logged = computed(() => {
       return store.getters.getLogged
     });
 
+    // 아이디 정보(로그인 정보추가, 로그아웃 정보제거)
     const uid = computed(() => {
       return store.getters.getUid
     });
 
     const uname = computed(() => {
       return store.getters.getUname
+    });
+
+    // SELLER, CUSTOMER
+    const urole = computed(() => {
+      return store.getters.getUrole
     });
 
     // store의 munu값 실시간으로 확인
@@ -94,7 +101,7 @@ export default {
     })
     */
 
-    return {state, menu, logged, handleSelect, uid, uname}
+    return {state, menu, logged, handleSelect, uid, uname, urole}
   }
 }
 </script>

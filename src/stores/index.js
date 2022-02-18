@@ -15,11 +15,15 @@ const stores = createStore({
         uid : '',   // 로그인한 사용자의 이메일 정보
         uname: '',  // 로그인한 사용자의 이름
         token: '',  // 토큰을 저장소에 보관하지 않고 사용
+        urole: '',   // 로그인 사용자의 권한 저장
     },
 
     // 가져가기 (getter)
     getters: {
-        
+        getUrole(state){
+            console.log('getUrole------>',state.urole);
+            return state.urole;
+        },
         getUid(state){
             return state.uid;
         },
@@ -36,6 +40,10 @@ const stores = createStore({
 
     // 변경하기 (mutation) : 즉시 변경
     mutations:{
+        setUrole(state, val){
+            console.log('setUrole---->', val);
+            state.urole = val;
+        },
         setUid(state, val){
             state.uid = val;
         },
@@ -67,6 +75,8 @@ const stores = createStore({
                     // mutations의 setUid, setUname을 호출해서 내용 변경
                     context.commit("setUid", response.data.uid);
                     context.commit("setUname", response.data.uname);
+                    context.commit("setUrole", response.data.urole);
+                    context.commit("setLogged", true);
                 }
                 else{
                     // 토큰의 유효성을 검사하여 통과하지 못할 경우

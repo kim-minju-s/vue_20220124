@@ -2,6 +2,7 @@
     <div class="style1">
         <h3>src/components/Join.vue</h3>
 
+        {{state.userrole}}
         <el-form
             label-width="100px"
             :model="state"
@@ -28,6 +29,12 @@
             </el-form-item>
         </el-form>
 
+        권한 :
+        <select v-model="state.userrole">
+            <option value="CUSTOMER">고객</option>
+            <option value="SELLER">판매자</option>
+        </select> <br />
+
     </div>
 </template>
 
@@ -46,7 +53,8 @@ export default {
             userpw: '',
             userpw1: '',
             username: '',
-            useremailcheck: '중복확인'
+            useremailcheck: '중복확인',
+            userrole : 'CUSTOMER'
         });
 
         // Low레벨 변수 생성: 오브젝트가 아님
@@ -118,7 +126,8 @@ export default {
             const body = {
                 email: state.userid,
                 password: state.userpw,
-                name: state.username
+                name: state.username,
+                role: state.userrole
             };
             const response = await axios.post(url, body, {headers});
             console.log(response.data);

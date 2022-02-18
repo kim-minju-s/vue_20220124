@@ -42,16 +42,20 @@ export default {
                 password: state.userpw
             };
             const response = await axios.post(url, body, {headers});
-            console.log(response.data);
+            console.log('response.data---->', response.data);
             if (response.data.status === 200) {
-                
                 // 저장소에 보관하기 (공통변수)
                 sessionStorage.setItem("TOKEN", response.data.token);
                 alert('로그인 되었습니다.');
 
-                // 이메일, 이름정보 (공통변수)
-                store.commit("setUid", response.data.uid);
-                store.commit("setUname",response.data.uname);
+                // actios 를 호출하여 store/state 변수를 변경함
+                store.dispatch("handleData", {});
+                // // store/index.js state를 변경하는 곳
+                // // 이메일, 이름정보, 권한, 로그인 (공통변수)
+                // store.commit("setUid", response.data.uid);
+                // store.commit("setUname",response.data.uname);
+                // store.commit("setUrole",response.data.urole);
+                // store.commit("setLogged", true); // 3. 로그인 상태
 
 
                 const curl = sessionStorage.getItem("CURL");
@@ -70,8 +74,7 @@ export default {
                     router.push({name:curl, query:query, params:params});
                 }
 
-                // 3. 로그인 상태
-                store.commit("setLogged",true);
+                
             }
         };
 
