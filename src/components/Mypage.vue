@@ -2,26 +2,26 @@
     <div>
         <h3>Mypage</h3>
 
-        <el-tabs type="border-card" class="demo-tabs" @tab-click="handleClick" >
+        <el-tabs v-model="activeName" type="border-card" class="demo-tabs" @tab-click="handleClick" >
 
             <el-tab-pane label="정보수정" name="1">
-                <menu-1 v-if="state.menu === 1"></menu-1>
+                <menu-1></menu-1>
             </el-tab-pane>
 
             <el-tab-pane label="암호변경" name="2">
-                <menu-2 v-if="state.menu === 2"></menu-2>
+                <menu-2></menu-2>
             </el-tab-pane>
 
             <el-tab-pane label="회원탈퇴" name="3">
-                <menu-3 v-if="state.menu === 3"></menu-3>
+                <menu-3></menu-3>
             </el-tab-pane>
 
-            <el-tab-pane label="주문내역">
-                <menu-4 v-if="state.menu === 4"></menu-4>
+            <el-tab-pane label="주문내역" name="4">
+                <menu-4></menu-4>
             </el-tab-pane>
 
-            <el-tab-pane label="주소관리">
-                <menu-5 v-if="state.menu === 5"></menu-5>
+            <el-tab-pane label="주소관리" name="5">
+                <menu-5></menu-5>
             </el-tab-pane>
         </el-tabs>
 
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, ref } from 'vue';
 
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
@@ -67,10 +67,13 @@ export default {
             menu: Number(route.query.menu),
         });
 
+        const activeName = ref('1')
+
         onMounted(()=> {
             console.log(route.query.menu);
             if (typeof route.query.menu === 'undefined') {
                 state.menu = 1;
+
             }
         })
         
@@ -86,7 +89,7 @@ export default {
             // router.push({name:"Mypage", query:{menu:idx}});
         }
 
-        return {state, handleMenu, handleClick}
+        return {state, handleMenu, handleClick, activeName}
     }
 }
 </script>

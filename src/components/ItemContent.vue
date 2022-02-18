@@ -27,24 +27,25 @@
                 <el-image
                     style="width: 450px; height: 450px"
                     :src="state.item.imageUrl"
-                    :fit="cover"
+                    :fit=" 'cover' "
                 ></el-image>
             </div>
 
-            <el-select v-model="value" clearable placeholder="개수">
+            <el-select v-model="state.item.ordercnt" clearable placeholder="개수">
                 <el-option
-                    v-for="no in state.item.ordercnt" :key="no">
+                    v-for="no in 100" :key="no" :label="no" :value="no">
+                    {{no}}
                 </el-option>
             </el-select>
 
-            <select v-model="state.item.ordercnt">
-                <option v-for="no in 100" :key="no">
+            <!-- <select v-model="state.item.ordercnt">
+                <option v-for="no in state.item" :key="no" >
                     {{ no }}
                 </option>
-            </select>
-            <button @click="handleOrderAction">주문하기</button>
-            <button @click="handleCartAction">장바구니</button>
-            <button @click="handleSelectCartAction">장바구니 목록</button>
+            </select> -->
+            <el-button type="success" @click="handleOrderAction">주문하기</el-button>
+            <el-button type="primary" @click="handleCartAction">장바구니</el-button>
+            <el-button type="primary" @click="handleSelectCartAction">장바구니 목록</el-button>
 
         </div>
     </div>
@@ -60,6 +61,7 @@ export default {
     setup () {
         const route = useRoute();
         const router = useRouter();
+
         const state = reactive({
             code: route.query.code,
         });
@@ -89,6 +91,8 @@ export default {
         };
 
         const handleOrderAction = async()=> {
+            console.log('이것은 value--->',value);
+            console.log('이것은 ordercnt----->',state.item.ordercnt);
             router.push({name:"Order",
                 query : {
                     code: state.item._id,
