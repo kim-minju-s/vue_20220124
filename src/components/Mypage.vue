@@ -70,7 +70,7 @@ export default {
         const activeName = ref('1')
 
         onMounted(()=> {
-            console.log(route.query.menu);
+            console.log('route.query.menu----->', route.query.menu);
             if (typeof route.query.menu === 'undefined') {
                 state.menu = 1;
 
@@ -78,7 +78,6 @@ export default {
         })
         
         const handleMenu = (idx) => {
-            console.log('sadfasdf');
             router.push({name:'Mypage', query:{menu:idx}});
             state.menu = idx;
         }
@@ -86,7 +85,9 @@ export default {
         const handleClick = (idx, event)=> {
             console.log('tab 클릭시--->', idx);
             console.log('event---->', event);
-            // router.push({name:"Mypage", query:{menu:idx}});
+            console.log('actiove----->', activeName);
+            // RefImpl._value = ref('e')
+            // router.push({name:'Mypage', params: { activeName:  }})
         }
 
         return {state, handleMenu, handleClick, activeName}
